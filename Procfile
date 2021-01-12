@@ -1,1 +1,1 @@
-Worker: java -jar target/JitJots-1 1.0-SNAPSHOT-jar-with-dependencies.jar
+Worker: java -jar target/JitJots-1 1.0-SNAPSHOT.jar
