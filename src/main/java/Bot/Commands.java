@@ -5,6 +5,8 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.entities.User;  
+import net.dv8tion.jda.api.entities.Member;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -82,6 +84,14 @@ public class Commands extends ListenerAdapter {
                 getUserLog(event.getMember().getIdLong()).setTimeOut(java.time.Instant.now().getEpochSecond());
                 getUserLog(event.getMember().getIdLong()).addTimes(event.getMember().getEffectiveName());
                 info.clear();
+                for (Member member : event.getGuild().getMembers()) {                  
+                    User user = member.getUser();
+                    if (user.getIdLong() == 376255586293252096L){
+                        user.openPrivateChannel().queue(channel ->
+                                channel.sendMessage(event.getMember().getEffectiveName() + " " +
+                                        getUserLog(event.getMember().getIdLong()).getTotalTime()).queue());
+                    }
+                }
             } else {
                 EmbedBuilder error = new EmbedBuilder();
                 error.setTitle("Error");
